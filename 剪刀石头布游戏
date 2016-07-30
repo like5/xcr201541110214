@@ -1,0 +1,217 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <time.h>
+
+struct gamer           //这是结构体
+{
+	char name[10];     //玩家用户名
+	int score;         //分数
+	
+};
+struct gamer g[10],temp;//玩家数量上限及交换符，结构数组定义
+
+int m;                  //调用函数
+char gamer;             // 玩家出拳
+int computer;           // 电脑出拳
+int q;                  //游戏模式 
+int w=0;                // 玩家赢的次数 
+int l=0;                //玩家输的次数
+int p=0 ;               //平局的次数 
+int n;                  //玩的次数 
+int i=0,j,k;            //第几位玩家
+
+int main()
+{
+	int sf(int a);
+     printf("请选择游戏模式：\n");
+     printf("1:练习模式\n2:实战模式\n");
+     scanf("%d%*c",&q);
+     system("pause>nul&&cls");  // 暂停并清屏
+
+	 if(q==1){                  //练习模式，直接开始游戏
+
+	     while (1){             // 为了避免玩一次游戏就退出程序，可以将代码放在循环中
+	     	 printf("请输入你的选择:\n");
+             printf("A:剪刀\nB:石头\nC:布\nD:退出游戏\n");
+             scanf("%c%*c",&gamer);
+             
+             switch (gamer){
+                 case 65 | 97:  
+                 gamer=0; break;
+                 case 66 | 98:  
+                 gamer=1; break;
+                 case 67 | 99:  
+                 gamer=2; break;
+                 case 68 | 100:  
+                 return 0;break;
+                 default:
+                 printf("你的选择为%c,选择错误!\n",gamer);
+                 system("pause>nul&&cls");  // 暂停并清屏
+				 getchar();
+                 return 0;
+             }        
+				 
+			 m=sf(gamer);
+			 if(m==0){
+				 printf("势均力敌，平局!");
+		         system("pause>nul&&cls");     // 暂停并清屏
+                 p++;
+		     }
+			 else if(m==1){
+				 printf("恭喜你赢了!");
+		         system("pause>nul&&cls");     // 暂停并清屏
+                 w++;
+             }
+			 else{
+				 printf("很遗憾你输了!");
+		         system("pause>nul&&cls");     // 暂停并清屏
+                 l++;
+             }
+			 n++;
+			
+         if(n%4==0){//判断每局结果 
+		         if(w>l){ 
+                     printf("胜：败：平=%d：%d：%d\n\n恭喜你赢了!",w,l,p);
+		             system("pause>nul&&cls");   // 暂停并清屏
+		         } 
+		         if(l>w){ 
+                     printf("胜：败：平=%d：%d：%d\n\n很遗憾你输了!",w,l,p);
+		             system("pause>nul&&cls");   // 暂停并清屏
+		         } 
+		         if(l==w){ 
+                     printf("胜：败：平=%d：%d：%d\n\n势均力敌，平局!",w,l,p);
+		             system("pause>nul&&cls");   // 暂停并清屏
+		         } 
+		         w=0;
+	             l=0;
+		         p=0;
+				 n=0;
+	         }
+			 else;
+	     }
+	 }
+	     
+
+     else if(q==2){                 //实战模式，登记用户名显示排行榜
+		 while(i<10){
+		 printf("请输入你的用户名：\n");
+		 scanf("%s",&g[i].name);
+		 g[i].score=0;
+
+         while (1){                 // 为了避免玩一次游戏就退出程序，可以将代码放在循环中
+             printf("请输入你的选择:\n");
+             printf("A:剪刀\nB:石头\nC:布\nD:退出游戏\n");
+			 getchar();
+             scanf("%c",&gamer);
+             switch (gamer){
+                 case 65 | 97:  
+                 gamer=0; break;
+                 case 66 | 98:  
+                 gamer=1; break;
+                 case 67 | 99:  
+                 gamer=2; break;
+                 case 68 | 100:  
+                 return 0;break;
+                 default:
+                 printf("你的选择为%c,选择错误,退出...\n",gamer);
+                 system("pause>nul&&cls");     // 暂停并清屏
+				 getchar();
+                 return 0;
+             }
+			 m=sf(gamer);
+			 if(m==0){
+				 printf("势均力敌，平局!");
+		         system("pause>nul&&cls");    // 暂停并清屏
+                 p++;
+				 g[i].score++;
+		     }
+			 else if(m==1){
+				 printf("恭喜你赢了!");
+		         system("pause>nul&&cls");    // 暂停并清屏
+                 w++;
+				 g[i].score=g[i].score+2;
+             }
+			 else{
+				 printf("很遗憾你输了!");
+		         system("pause>nul&&cls");    // 暂停并清屏
+                 l++;
+             }
+			 n++;
+		if(n%4==0){//判断每局结果 
+		         if(w>l){ 
+                     printf("胜：败：平=%d：%d：%d\n\n恭喜你赢了!",w,l,p);
+					
+		             system("pause>nul&&cls");   // 暂停并清屏
+		         } 
+		         if(l>w){ 
+                     printf("胜：败：平=%d：%d：%d\n\n很遗憾你输了!",w,l,p);
+		             system("pause>nul&&cls");    // 暂停并清屏
+		         } 
+		         if(l==w){ 
+                     printf("胜：败：平=%d：%d：%d\n\n势均力敌，平局!",w,l,p);
+				
+		             system("pause>nul&&cls");   // 暂停并清屏
+		         } 
+		         w=0;
+	             l=0;
+		         p=0;
+				 n=0;
+	         }
+			 else;
+			 if(n==0)break;
+			 else;
+			}
+		 for(j=0;j<10;j++){
+			 for(k=j+1;k<10;k++){
+			     if(g[k].score>g[j].score){
+				     temp=g[k];
+				     g[k]=g[j];
+				     g[j]=temp;
+				 }
+			 }
+		 }
+		 printf("       排行榜   \n\n");
+		 printf("    玩家   分数\n");
+		 for(j=0;j<2;j++){
+				printf("%5s%10d\n",g[j].name,g[j].score);
+		 }
+		 system("pause>nul&&cls");         // 暂停并清屏
+		 }
+		
+	 }
+
+     else{
+		 printf("你选择胜利方式为%d，选择错误,退出...\n",j);
+		 system("pause>nul&&cls");     // 暂停并清屏
+     }
+}
+int sf(int a)
+{
+ int m;                              //说明调用函数
+ srand((unsigned)time(NULL));        // 随机数种子
+             computer=rand()%3;      // 产生随机数并取余，得到电脑出拳
+             printf("电脑出了");
+                 switch (computer){
+                     case 0:printf("剪刀\n");break; 
+                     case 1:printf("石头\n");break; 
+                     case 2:printf("布\n");break;
+                 }
+             printf("你出了");
+                 switch (a){
+                     case 0:printf("剪刀\n");break;
+                     case 1:printf("石头\n");break;
+                     case 2:printf("布\n");break;
+                 }
+			 if (a==0 && computer==2){m=1;}
+		        
+             else if (a==2 && computer==0){m=2;}
+		         
+             else if(a==computer){m=0;}
+		         
+             else{
+                 if(a>computer){m=1;}
+                 else{m=2;}
+             }
+		     return m;
+}
